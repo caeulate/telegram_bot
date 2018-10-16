@@ -6,10 +6,10 @@ import json
 import time
 import datetime
 
-chat = 12611672
+chat = 
 
 
-TOKEN = "629326723:AAHfDJ7wgeVxUKX7U8ntrj1lNXhXcq9A2v0"
+TOKEN = ""
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
 
 
