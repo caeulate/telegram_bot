@@ -1,0 +1,74 @@
+#!/bin/bash
+
+CERTS_FOLDER=/etc/mosquitto/certs
+CA_FILE=$CERTS_FOLDER/xxx.crt
+CERT_FILE=$CERTS_FOLDER/xxx.crt
+KEY_FILE=$CERTS_FOLDER/xxx.key
+
+HOST=$(ifconfig wlan0 | grep inet | head -1 | cut -c 14,15,16,17,18,19,20,21,22,23,24,25,26,27)
+TOPIC="xxx"
+MQTTV=mqttv311
+TLSV=tlsv1
+ID_DEVICE=xxxx
+USER=xxxx
+
+## MQTT DEFAULT ##
+echo "mosquitto_sub -h $HOST -t $TOPIC"
+mosquitto_sub -h $HOST -t $TOPIC | while read value; do
+    case $value in
+        play_1)
+	    echo "Play 1"
+            python3 $HOME/football_graphics/final_plot.py play_1
+            ;;
+        play_2)
+            echo "Play 2"
+            python3 $HOME/football_graphics/final_plot.py play_2
+            ;;
+        play_3)
+            echo "Play 3"
+            python3 $HOME/football_graphics/final_plot.py play_3
+            ;;
+        play_4)
+            echo "Play 4"
+            python3 $HOME/football_graphics/final_plot.py play_4
+            ;;
+        play_5)
+            echo "Play 5"
+            python3 $HOME/football_graphics/final_plot.py play_5
+            ;;
+        play_6)
+            echo "Play 6"
+            python3 $HOME/football_graphics/final_plot.py play_6
+            ;;
+        play_7)
+            echo "Play 7"
+            python3 $HOME/football_graphics/final_plot.py play_7
+            ;;
+        play_8)
+            echo "Play 8"
+            python3 $HOME/football_graphics/final_plot.py play_8
+            ;;
+        play_9)
+            echo "Play 9"
+            python3 $HOME/football_graphics/final_plot.py play_9
+            ;;
+        play_10)
+            echo "Play 10"
+            python3 $HOME/football_graphics/final_plot.py play_10
+            ;;
+        info)
+	    echo "Info"
+            python3 $HOME/football_graphics/final_plot.py info
+            ;;
+        *)
+            echo "Error"
+            python3 $HOME/football_graphics/final_plot.py error
+            ;;
+    esac
+done
+## END ##
+
+## MQTT WITH CERTS ##
+#echo "mosquitto_pub -d -h $HOST -i $ID_DEVICE -t $TOPIC -p 8883 --cafile $CA_FILE --cert $CERT_FILE --key $KEY_FILE -V mqttv311 -m "'"TESTING MQTT"'" "
+#mosquitto_pub -d -h $HOST -i $ID_DEVICE -u $USER -t "$TOPIC" -p 8883 --tls-version $TLSV --cafile $CA_FILE --cert $CERT_FILE --key $KEY_FILE -V mqttv311 -m "TESTING MQTT"
+## END ##
